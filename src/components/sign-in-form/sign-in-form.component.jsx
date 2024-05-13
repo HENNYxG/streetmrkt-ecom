@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
 
 import {signInWithGooglePopup, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword } from '../../utils/firebase/firebase.utils'
+
+import { UserContext } from '../../contexts/user.context'
 
 import './sign-in-form.styles.scss'
 // import { logGoogleUser } from '../../routes/authentication/authentication.component';
@@ -18,6 +20,8 @@ const defaultFormFields = {
 const SignInForm = () => {
     const[formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
+    const { setCurrentUser } = useContext(UserContext);
+
 
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
@@ -27,6 +31,7 @@ const SignInForm = () => {
         try {
             const response = await signInWithGooglePopup();
             await createUserDocumentFromAuth(response.user);
+            setCurrentUser(response.user);
         } catch(error) {
         console.log(error)
         };
@@ -41,7 +46,8 @@ const SignInForm = () => {
                 email, 
                 password
             );        
-            console.log(response);
+            setCurrentUser(response.user);
+            //resetFormFields();
         } catch(error) {
             console.log(error.code);
             if(error.code === 'auth/invalid-credential') {
@@ -50,14 +56,11 @@ const SignInForm = () => {
         }
     };
     
-
     const handleChange = (event) => {
         const { name, value } = event.target;
         
         setFormFields({...formFields, [name]: value })
-        console.log({formFields})
     };
-
     return(
         <div className='sign-in-container'> 
         <h2> Have an account? </h2>
