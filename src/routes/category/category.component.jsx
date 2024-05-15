@@ -18,7 +18,7 @@ const Category = () => {
 
   return (
     <>
-      <h1>{category.toUpperCase()}</h1>
+      <h2 className="category-title">{category.toUpperCase()}</h2>
       <div className="category-page-container">
         {products &&
           products.map((product) => (
