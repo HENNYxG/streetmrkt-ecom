@@ -8,7 +8,6 @@ import { store } from './store/store'
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { UserProvider } from './contexts/user.context';
 import { CategoriesProvider } from './contexts/categories.context';
 import { CartProvider } from './contexts/cart.context';
 
@@ -17,13 +16,11 @@ root.render(
   <React.StrictMode>
     <Provider store={ store }>
       <BrowserRouter>
-        <UserProvider>
           <CategoriesProvider>
             <CartProvider>
               <App />
             </CartProvider>
           </CategoriesProvider>
-        </UserProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
