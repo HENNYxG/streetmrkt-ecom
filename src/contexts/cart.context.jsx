@@ -80,7 +80,7 @@ const cartReducer = (state, action) => {
     case CART_ACTION_TYPES.UPDATE_CART_ITEMS:
       return {
         ...state,
-        ...payload
+        cartItem: payload,
       }
     default:
       throw new Error(`Unhandled type ${type} in cartReducer`);
