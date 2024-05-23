@@ -59,7 +59,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
         }
     }
 
-    return userSnapshot;
+    return userDocRef;
 };
     
 // Check to see if snapshot userdata exisits
@@ -104,17 +104,11 @@ export const getCategoriesAndDocuments = async () => {
     
     const querySnapshot = await getDocs(q);
     return querySnapshot.docs.map(docSnapshot => docSnapshot.data());
-}
 
-export const getCurrentUser = () => {
-    return new Promise((resolve, reject) => {
-        const unsubscribe = onAuthStateChanged(
-            auth,
-            (userAuth) => {
-                unsubscribe();
-                resolve(userAuth);
-            },
-            reject
-        );
-    });
-};
+    // const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+    //     const { title, items } = docSnapshot.data();
+    //     acc[title.toLowerCase()] = items;
+    //     return acc;
+    // }, {});
+    // return categoryMap;
+}

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { createUserDocumentFromAuth, onAuthStateChangedListener, getCurrentUser } from "./utils/firebase/firebase.utils";
+import { createUserDocumentFromAuth, onAuthStateChangedListener } from "./utils/firebase/firebase.utils";
 import { useDispatch } from "react-redux";
 
 
@@ -10,13 +10,20 @@ import Authentication from "./routes/authentication/authentication.component";
 import Checkout from "./routes/checkout/checkout.component";
 import Shop from "./routes/shop/shop.component";
 
-import { checkUserSession } from "./store/user/user.action";
+import { setCurrentUser } from "./store/user/user.action";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(checkUserSession());
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocumentFromAuth(user);
+      }
+      dispatch(setCurrentUser(user));
+    });
+
+    return unsubscribe;
   }, []);
 
   return (
