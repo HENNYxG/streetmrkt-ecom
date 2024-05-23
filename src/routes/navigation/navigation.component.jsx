@@ -10,7 +10,8 @@ import { selectCurrentUser } from '../../store/user/user.selector'
 
 import "./navigation.styles.scss";
 import SMLogo from "../../assets/streetmrkt-logo.png";
-import { signOutUser } from "../../utils/firebase/firebase.utils";
+import { signOutStart } from "../../store/user/user.action";
+import { useDispatch } from "react-redux";
 
 
 
@@ -18,8 +19,9 @@ import { signOutUser } from "../../utils/firebase/firebase.utils";
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
+  const dispatch = useDispatch();
 
-
+  const signOutUser = () => dispatch(signOutStart());
 
   return (
     <Fragment>
@@ -42,7 +44,7 @@ const Navigation = () => {
           )}
           <CartIcon />
         </div>
-        {isCartOpen && <CardDropdown /> }
+        {isCartOpen && <CardDropdown />}
       </div>
       <Outlet />
     </Fragment>
