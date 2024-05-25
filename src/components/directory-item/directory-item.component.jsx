@@ -7,7 +7,6 @@ const DirectoryItem = ({category}) => {
 
   const onNavigateHandler = () => {
     navigate(route);
-    console.log(route);
   }
 
   return (

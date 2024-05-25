@@ -10,7 +10,7 @@ import Authentication from "./routes/authentication/authentication.component";
 import Checkout from "./routes/checkout/checkout.component";
 import Shop from "./routes/shop/shop.component";
 
-import { setCurrentUser } from "./store/user/user.action";
+import { setCurrentUser } from "./store/user/user.reducer";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,9 @@ const App = () => {
       if (user) {
         createUserDocumentFromAuth(user);
       }
-      dispatch(setCurrentUser(user));
+      const pickedUser = user && (({ accessToken, email }) => ({ accessToken, email }))(user);
+      console.log(pickedUser);
+      dispatch(setCurrentUser(pickedUser));
     });
 
     return unsubscribe;
