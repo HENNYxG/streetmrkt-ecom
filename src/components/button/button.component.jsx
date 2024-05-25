@@ -7,16 +7,18 @@ Google sign-in
 */
 import "./button.styles.scss"
 
-const buttonTypeClasses = {
-    inverted: 'inverted',
-    google: 'google-sign-in',
+export const BUTTON_TYPE_CLASSES = {
+    base: 'base',
+    inverted: "inverted",
+    google: "google-sign-in",
 };
 
-const Button = ({children, buttonType, ...otherProps }) => {
+const Button = ({children, buttonType, isLoading, ...otherProps }) => {
     return (
-        <button className={`button-container ${buttonTypeClasses[buttonType]}`} {...otherProps}> 
-        {children}
-        </button>
+      <button
+        className={`button-container ${BUTTON_TYPE_CLASSES[buttonType]}`} disabled={isLoading} {...otherProps}>
+        {isLoading ? <div className="button-spinner-container"/> : children}
+      </button>
     );
 };
 
