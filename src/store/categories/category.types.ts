@@ -17,3 +17,8 @@ export type Category = {
   imageURL: string;
   items: CategoryItem[];
 }
+
+export type CategoryMap = {
+  [key: string]: CategoryItem[];
+}
+//this says that the key can be any string (its based on the category name which is a string) but the value is def an array of CategoryItem's
